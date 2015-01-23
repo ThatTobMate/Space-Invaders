@@ -76,9 +76,28 @@
 					}
 				},
 				generateDamage: function(x, y){
-					x = Math.floor(x/2) * 2
+					x = Math.floor(x/2) * 2;
+					y = Math.floor(y/2) * 2;
+
+					this.ctx.clearRect(x-2, y-2, 4, 4)
+					this.ctx.clearRect(x+2, y-4, 2, 4)
+					this.ctx.clearRect(x+4, y, 2, 2)
+					this.ctx.clearRect(x+2, y+2, 2, 2)
+					this.ctx.clearRect(x-4, y+2, 2, 2)
+					this.ctx.clearRect(x-6, y, 2, 2)
+					this.ctx.clearRect(x-4, y-4, 2, 2)
+					this.ctx.clearRect(x-2, y-6, 2, 2)
 				},
-				hits: function(x, y){}
+				hits: function(x, y){
+					y -= this.y;
+					var data = this.ctx.getImageData(x, y, 1, 1);
+					if(data.data[3] !== 0){
+						this.generateDamage(x, y);
+						return true
+					}else{
+						return false;
+					}
+				}
 			};
 
 			cities.init()
@@ -136,6 +155,16 @@
 					len--;
 					continue;
 				}
+
+				var h2 = b.height * 0.5;
+				if(cities.y < b.y + h2 && b.y+h2 < cities.y + cities.h){
+					if (cities.hits(b.x, b.y+h2)){
+						bullets.splice(i, 1);
+						i--;
+						len--;
+						continue;
+					}
+				}
 				for(var j = 0, len2 = aliens.length; j<len2; j++){
 					var a = aliens[j]
 					if(AABBIntersect(b.x, b.y, b.width, b.height, a.x, a.y, a.w, a.h)){
@@ -145,6 +174,25 @@
 						bullets.splice(i, 1);
 						i--;
 						len--;
+
+						switch(len2){
+							case 30: {
+								this.lvlFrame = 40;
+								break;
+							}
+							case 10:{
+								this.lvlFrame = 20;
+								break;
+							}
+							case 5:{
+								this.lvlFrame = 10;
+								break;
+							}
+							case 1:{
+								this.lvlFrame = 6;
+								break;
+							}
+						}
 					}
 				}
 			}
