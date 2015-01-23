@@ -19,7 +19,7 @@
 <body>
 	<script>
 
-		var display, input, frames, spFrame, lvlFrame;
+		var display, input, frames, spFrame, lvlFrame, lives;
 		var alSprite, taSprite, ciSprite;
 		var aliens, dir, tank, bullets, cities;
 
@@ -51,6 +51,7 @@
 			spFrame = 0;
 			lvlFrame = 60;
 			dir = 1;
+			lives = 3
 
 			tank = {
 				sprite: taSprite,
@@ -165,6 +166,16 @@
 						continue;
 					}
 				}
+
+				if(AABBIntersect(b.x, b.y, b.width, b.height, tank.x, tank.y, tank.sprite.w, tank.sprite.h)){
+					bullets.splice(i, 1);
+					i--;
+					len--;
+					lives -=1
+					if(lives == 0){
+					throw new Error(alert("GAMEOVER"));
+					}
+				}
 				for(var j = 0, len2 = aliens.length; j<len2; j++){
 					var a = aliens[j]
 					if(AABBIntersect(b.x, b.y, b.width, b.height, a.x, a.y, a.w, a.h)){
@@ -236,6 +247,10 @@
 			for (var i = 0, len = aliens.length; i < len; i++){
 				var a = aliens[i];
 				display.drawSprite(a.sprite[spFrame], a.x, a.y)
+			}
+
+			for(i = 0, len = lives; i<len; i++){
+				console.log(i, lives)
 			}
 
 			display.ctx.save()
