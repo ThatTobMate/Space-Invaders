@@ -251,11 +251,12 @@
 						aliens.splice(j, 1);
 						j--;
 						len2--;
-						if(len2 == 0){
 						bullets.splice(i, 1);
 						i--;
 						len--;
-						$('.gameover').text("You Win!");
+						if(len2 == 0){
+						aliens = [];
+						$('.gameover').text("You Win");
 						document.getElementById('play').style.pointerEvents = 'auto';
 						throw new Error();
 						}
