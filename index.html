@@ -55,7 +55,7 @@
 
 	<h2 class="life_text">Lives: <span id="lives">3</span></h2>
 	<h1 class="gameover"></h1>
-	<div class="play">play</div>
+	<div id="play">play</div>
 	<script>
 
 		var display, input, frames, spFrame, lvlFrame, lives;
@@ -234,6 +234,7 @@
 
 					if(lives == 0){
 					$('.gameover').text("Game Over");
+					document.getElementById('play').style.pointerEvents = 'auto';
 					throw new Error();
 					}
 				}
@@ -325,8 +326,12 @@
 			display.drawSprite(tank.sprite, tank.x, tank.y)
 		}
 
-		main();
-		$('.play').on('click', main)
+		// main();
+		$('#play').on('click', function(){
+			$('.gameover').text("");
+			main();
+			document.getElementById('play').style.pointerEvents = 'none';
+		})
 
 	</script>
 
