@@ -219,8 +219,9 @@
 					len--;
 					lives -=1
 					$('#lives').text(lives);
-					$('.gameover').text("Game Over");
+
 					if(lives == 0){
+					$('.gameover').text("Game Over");
 					throw new Error();
 					}
 				}
