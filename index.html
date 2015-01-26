@@ -219,8 +219,9 @@
 					len--;
 					lives -=1
 					$('#lives').text(lives);
+					$('.gameover').text("Game Over");
 					if(lives == 0){
-					throw new Error($('.gameover').text("Game Over"););
+					throw new Error();
 					}
 				}
 				for(var j = 0, len2 = aliens.length; j<len2; j++){
