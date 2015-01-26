@@ -55,6 +55,7 @@
 
 	<h2 class="life_text">Lives: <span id="lives">3</span></h2>
 	<h1 class="gameover"></h1>
+	<div class="play">play</div>
 	<script>
 
 		var display, input, frames, spFrame, lvlFrame, lives;
@@ -324,6 +325,7 @@
 		}
 
 		main();
+		$('.play').on('click', main)
 
 	</script>
 
