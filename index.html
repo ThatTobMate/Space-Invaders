@@ -3,7 +3,12 @@
 	<meta charset="UTF-8">
 	<title>Space Invaders</title>
 	<script src="js/helpers.js"></script>
+	<script src="js/jquery-1.11.2.min.js"></script>
 	<style>
+	body{
+		background: darkblue;
+		color: white;
+	}
 	canvas{
 		background-color: #000;
 		display: block;
@@ -17,12 +22,16 @@
 	</style>
 </head>
 <body>
+	<div id="lives">3</div>
 	<script>
 
 		var display, input, frames, spFrame, lvlFrame, lives;
 		var alSprite, taSprite, ciSprite;
 		var aliens, dir, tank, bullets, cities;
-
+		
+		// $(document).ready(function(){
+		// window.addEventListener("devicemotion",ondeviceorientation,false);
+		// });
 
 		function main(){
 			display = new Screen(504, 600);
@@ -52,7 +61,7 @@
 			lvlFrame = 60;
 			dir = 1;
 			lives = 3
-
+			
 			tank = {
 				sprite: taSprite,
 				x:(display.width - taSprite.w)/2,
@@ -131,6 +140,21 @@
 
 		function update(){
 
+			// window.ondeviceorientation = function(event) {
+			//   alpha = Math.round(event.alpha);
+			//   beta = Math.round(event.beta);
+			//   gamma = Math.round(event.gamma);
+
+			//   if(gamma > 10){
+			//   	tank.x -= 4;
+			//   }else if(gamma < -10){
+			//   	tank.x += 4;
+			//   }
+			// }
+
+			// window.ondeviceorientation()
+
+
 			if(input.isDown(37)){
 				tank.x -= 4;
 
@@ -172,6 +196,7 @@
 					i--;
 					len--;
 					lives -=1
+					$('#lives').text(lives);
 					if(lives == 0){
 					throw new Error(alert("GAMEOVER"));
 					}
@@ -249,9 +274,9 @@
 				display.drawSprite(a.sprite[spFrame], a.x, a.y)
 			}
 
-			for(i = 0, len = lives; i<len; i++){
-				console.log(i, lives)
-			}
+			// for(i = 0, len = lives; i<len; i++){
+			// 	console.log(i, lives)
+			// }
 
 			display.ctx.save()
 			for(var i = 0, len=bullets.length; i < len; i++){
